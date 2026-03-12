@@ -1,0 +1,93 @@
+body {
+    font-family: 'Outfit','Poppins', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #3C4C53;
+}
+
+nav {
+    background-color: #5D707F;
+    padding: 15px; 
+}
+
+.navbar ul {
+    display: flex;
+    justify-content: flex-end;
+    padding-right: 45px;
+    list-style: none;
+}
+
+.navbar li {
+    padding: 10px 15px;
+    margin-right: 20px;
+}
+
+.navbar a {
+    color: #FFFFFF;
+    text-decoration: none;
+    font-weight: bold;
+    
+}
+
+/* Navigation Bar Styling ends */
+
+/* Main Content Styling begins */
+main {
+    padding: 40px 80px;
+
+}
+
+/* Header Styling begins */
+
+
+
+h1 {
+    color: #FFFFFF;
+    text-align: left;
+    margin-top: 50px;
+}   
+
+
+/* Search Bar Styling begins */
+
+.search-input {
+    width: 200px;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 12px;
+    margin-right: 10px;
+    outline: none;
+    background-color: #1a1a2e;
+    color: #FFFFFF;
+}
+
+.search-btn {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 12px;
+    background-color: #5D707F;
+    color: white;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+form {
+    display: flex;
+    justify-content: flex-end;
+    padding-right: 90px;
+    margin-top: 20px; 
+    margin-bottom: 40px;
+}
+
+/* Search Bar Styling ends */
+
+/* paragraph styling begins */
+
+p {
+    color: #FFFFFF;
+    text-align: center;
+    max-width: 900px;
+    margin: 20px auto;
+    line-height: 2.6;
+    font-size: 18px;
+}
