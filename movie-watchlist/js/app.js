@@ -37,8 +37,10 @@ function displayMovies(movies) {
         movieCard.classList.add("movie-card");
         movieCard.innerHTML = `
             <img src="${IMAGE_BASE_URL}${movie.poster_path}" alt="${movie.title}">
-            <h3>${movie.title}</h3>
-            <p>${movie.release_date}</p>
+            <div class="movie-info">
+                <h3>${movie.title}</h3>
+                <p>${movie.release_date ? movie.release_date.split("-")[0] : "Unknown"} </p>
+            </div>
         `;
         moviesContainer.appendChild(movieCard);
     });

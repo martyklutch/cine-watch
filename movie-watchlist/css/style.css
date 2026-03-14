@@ -1,22 +1,22 @@
 body {
     font-family: 'Outfit','Poppins', sans-serif;
-    margin: 0;
-    padding: 0;
-    background: linear-gradient(270deg, #1a2a35, #3C4C53);
+    margin: 0;        /* removes default browser whitespace */
+    padding: 0;       /* ensures content starts flush with the viewport */
+    background: linear-gradient(270deg, #1a2a35, #3C4C53); /* diagonal dark-blue gradient for a cinematic feel */
 }
 
 /* Navigation Bar Styling begins */
 
 nav {
     background-color: #5D707F;
-    padding: 15px; 
+    padding: 15px;
 }
 
 .navbar ul {
     display: flex;
-    justify-content: flex-end;
+    justify-content: flex-end; /* pushes nav links to the right side */
     padding-right: 45px;
-    list-style: none;
+    list-style: none;          /* removes default bullet points */
 }
 
 .navbar li {
@@ -26,22 +26,22 @@ nav {
 
 .navbar a {
     color: #FFFFFF;
-    text-decoration: none;
+    text-decoration: none; /* removes the default underline from links */
     font-weight: bold;
-    
+
 }
 
 .navbar a:hover {
     color: #2d3748;
-    transition: color 0.3s ease;
-    border-bottom: 2px solid #FFFFFF;
+    transition: color 0.3s ease;     /* smooth color shift on hover instead of an instant jump */
+    border-bottom: 2px solid #FFFFFF; /* underline effect that only appears on hover */
 }
 
 /* Navigation Bar Styling ends */
 
 /* Main Content Styling begins */
 main {
-    padding: 40px 80px;
+    padding: 40px 80px; /* adds breathing room so content doesn't hug the edges */
 
 }
 
@@ -52,9 +52,9 @@ main {
 h1 {
     color: #FFFFFF;
     text-align: left;
-    text-shadow: 0px 4px 10px rgba(0, 0, 0, 0.8);
+    text-shadow: 0px 4px 10px rgba(0, 0, 0, 0.8); /* drop shadow adds depth and legibility on the gradient background */
     margin-top: 50px;
-}   
+}
 
 
 /* Search Bar Styling begins */
@@ -63,37 +63,37 @@ h1 {
     width: 200px;
     padding: 10px 15px;
     border: none;
-    border-radius: 12px;
+    border-radius: 12px;       /* rounded corners for a modern, pill-like input feel */
     margin-right: 10px;
-    outline: none;
-    background-color: #1a1a2e;
+    outline: none;             /* removes the default browser focus ring */
+    background-color: #1a1a2e; /* dark background keeps the input consistent with the overall theme */
     color: #FFFFFF;
 }
 
 .search-input {
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3); /* subtle shadow lifts the input off the background */
 }
 
 .search-btn {
     padding: 10px 20px;
     border: none;
     border-radius: 12px;
-    background-color: #5D707F;
+    background-color: #5D707F; /* matches the nav color to keep the palette cohesive */
     color: white;
-    cursor: pointer;
+    cursor: pointer;           /* changes the cursor to a hand so it's clear this is clickable */
     font-size: 16px;
 }
 
 .search-btn:hover {
     background-color: #2d3748;
-    transition: background-color 0.3s ease;
+    transition: background-color 0.3s ease; /* smooth background shift so the hover doesn't feel abrupt */
 }
 
 form {
     display: flex;
-    justify-content: flex-end;
+    justify-content: flex-end; /* aligns the search bar to the right, mirroring the nav layout */
     padding-right: 90px;
-    margin-top: 20px; 
+    margin-top: 20px;
     margin-bottom: 40px;
 }
 
@@ -104,9 +104,9 @@ form {
 p {
     color: #FFFFFF;
     text-align: center;
-    max-width: 900px;
-    margin: 20px auto;
-    line-height: 2.6;
+    max-width: 900px;       /* caps the line length to keep text readable at wide screen sizes */
+    margin: 20px auto;      /* auto left/right margins center the block horizontally */
+    line-height: 2.6;       /* generous line height improves readability for body text */
     font-size: 18px;
 }
 
@@ -115,19 +115,45 @@ p {
 /* Movie List Styling begins */
 #searchResults {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(450px, 1fr));
-    gap: 20px;
+    grid-template-columns: repeat(auto-fill, minmax(450px, 1fr)); /* responsive grid: fills as many columns as fit, each at least 450px wide */
+    gap: 40px;
     padding: 30px;
 }
 
 .movie-card {
+    position: relative;   /* establishes the stacking context so .movie-info can be absolutely positioned inside */
+    overflow: hidden;     /* clips the image and overlay so they don't bleed outside the rounded corners */
+    border-radius: 15px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* animates the scale and shadow together on hover */
+    cursor: pointer;
+}
+
+.movie-info {
+    position: absolute; /* overlays the info panel directly on top of the poster image */
+    bottom: 0;          /* anchors the panel to the bottom of the card */
+    left: 0;
     width: 100%;
-    border-radius: 8px;
+    padding: 20px;
+    background: rgba(0, 0, 0, 0.7); /* semi-transparent black so poster art is still visible behind the text */
+    color: #FFFFFF;
+    opacity: 0;                      /* hidden by default; revealed on card hover */
+    transition: opacity 0.3s ease;
 }
 
 .movie-card img {
-    color: white;
+    color: white;        /* fallback text color if the image fails to load */
+    width: 100%;         /* stretches the poster to fill the full card width */
     font-size: 14px;
-    margin: 8px;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+    border-radius: 0 0 15px 15px; /* only rounds the bottom corners since the top is flush with the card edge */
+    box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.8);
+}
+
+.movie-card:hover {
+    transform: scale(1.05);                      /* slight zoom gives the card a tactile, interactive feel */
+    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.8); /* shadow grows on hover to reinforce the lift effect */
+
+}
+
+.movie-card:hover .movie-info {
+    opacity: 1; /* fades the info overlay in when the user hovers over the card */
 }
