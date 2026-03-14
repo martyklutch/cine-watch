@@ -2,8 +2,10 @@ body {
     font-family: 'Outfit','Poppins', sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #3C4C53;
+    background: linear-gradient(270deg, #1a2a35, #3C4C53);
 }
+
+/* Navigation Bar Styling begins */
 
 nav {
     background-color: #5D707F;
@@ -29,6 +31,12 @@ nav {
     
 }
 
+.navbar a:hover {
+    color: #2d3748;
+    transition: color 0.3s ease;
+    border-bottom: 2px solid #FFFFFF;
+}
+
 /* Navigation Bar Styling ends */
 
 /* Main Content Styling begins */
@@ -44,6 +52,7 @@ main {
 h1 {
     color: #FFFFFF;
     text-align: left;
+    text-shadow: 0px 4px 10px rgba(0, 0, 0, 0.8);
     margin-top: 50px;
 }   
 
@@ -61,6 +70,10 @@ h1 {
     color: #FFFFFF;
 }
 
+.search-input {
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+}
+
 .search-btn {
     padding: 10px 20px;
     border: none;
@@ -69,6 +82,11 @@ h1 {
     color: white;
     cursor: pointer;
     font-size: 16px;
+}
+
+.search-btn:hover {
+    background-color: #2d3748;
+    transition: background-color 0.3s ease;
 }
 
 form {
@@ -90,4 +108,26 @@ p {
     margin: 20px auto;
     line-height: 2.6;
     font-size: 18px;
+}
+
+/* paragraph styling ends */
+
+/* Movie List Styling begins */
+#searchResults {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(450px, 1fr));
+    gap: 20px;
+    padding: 30px;
+}
+
+.movie-card {
+    width: 100%;
+    border-radius: 8px;
+}
+
+.movie-card img {
+    color: white;
+    font-size: 14px;
+    margin: 8px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
 }
