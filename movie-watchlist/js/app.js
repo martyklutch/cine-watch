@@ -12,83 +12,107 @@ const modalMovieTitle = document.querySelector("#movie-title");
 const modalContainer = document.querySelector("#modal-container");
 
 const closeButton = document.querySelector(".close-button");
+const modalfaveHeartBtn = document.querySelector("#fave-heart");
+
+
 
 searchButton.addEventListener("click", async (e) => {
-  e.preventDefault();
-  const query = searchInput.value.trim();
-  if (query) {
+    e.preventDefault();
+    const query = searchInput.value.trim();
+    if (query) {
     const movies = await searchMovies(query);
     displayMovies(movies);
-  }
+    }
 });
 
 async function searchMovies(query) {
-  try {
+    try {
     const response = await fetch(
-      `${BASE_URL}/search/movie?api_key=${API_KEY}&query=${encodeURIComponent(query)}`,
+        `${BASE_URL}/search/movie?api_key=${API_KEY}&query=${encodeURIComponent(query)}`,
     );
     const data = await response.json();
     return data.results;
-  } catch (error) {
+    } catch (error) {
     console.error("Error fetching movies:", error);
     return [];
-  }
+    }
+}
+
+function toggleFavorite(heartElement, movie) {
+        heartElement.classList.toggle("heart-active");
+        if (heartElement.classList.contains("heart-active")) {
+        heartElement.textContent = "❤️";  // filled
+        } else {
+        heartElement.textContent = "♡";  // empty
+        }
 }
 
 function displayMovies(movies) {
-  moviesContainer.innerHTML = "";
-  if (movies.length === 0) {
+    moviesContainer.innerHTML = "";
+    if (movies.length === 0) {
     moviesContainer.innerHTML = "<p>No movies found.</p>";
     return;
-  }
-  movies.forEach((movie) => {
+    }
+    movies.forEach((movie) => {
     const movieCard = document.createElement("div");
     movieCard.classList.add("movie-card");
     movieCard.innerHTML = `
-            <img src="${IMAGE_BASE_URL}${movie.poster_path}" alt="${movie.title}">
-            <div class="movie-info">
-                <h3>${movie.title}</h3>
-                <p>${movie.release_date ? movie.release_date.split("-")[0] : "Unknown"} </p>
-            </div>
-        `;
+                <img src="${IMAGE_BASE_URL}${movie.poster_path}" alt="${movie.title}">
+                <div class="movie-info">
+                    <span class = "heart-favorite">&#9825;</span>
+                    <h3>${movie.title}</h3>
+                    <p>${movie.release_date ? movie.release_date.split("-")[0] : "Unknown"} </p>
+                </div>
+            `;
+    
+    const movieHeart = movieCard.querySelector(".heart-favorite");
+    
     movieCard.addEventListener("click", function () {
-      modalContainer.classList.remove("modal-hidden");
-      modalContainer.classList.add("modal-active");
-
-      modalMovieTitle.textContent = `${movie.title}`;
-      modalBackDrop.src = `${IMAGE_BASE_URL}${movie.backdrop_path}`;
-      modalOverview.textContent = `${movie.overview}`;
+        modalContainer.classList.remove("modal-hidden");
+        modalContainer.classList.add("modal-active");
+        
+        // adding a faveorites to the modal 
+        
+        
+        modalMovieTitle.textContent = `${movie.title}`;
+        modalBackDrop.src = `${IMAGE_BASE_URL}${movie.backdrop_path}`;
+        modalOverview.textContent = `${movie.overview}`;
     });
-
+    
+    movieHeart.addEventListener("click", function(event) {
+        event.stopPropagation();
+        toggleFavorite(movieHeart, movie);    
+    })
+    
     moviesContainer.appendChild(movieCard);
-  });
-}
+    
+    });
+}             
 
 closeButton.addEventListener("click", function () {
-  modalContainer.classList.add("modal-hidden");
-  modalContainer.classList.remove("modal-active");
+    modalContainer.classList.add("modal-hidden");
+    modalContainer.classList.remove("modal-active");
 
-  console.log(closeButton);
+    console.log(closeButton);
 });
 
 modalContainer.addEventListener("click", function (event) {
-  if (event.target === modalContainer) {
+    if (event.target === modalContainer) {
     modalContainer.classList.add("modal-hidden");
     modalContainer.classList.remove("modal-active");
-  }
+    }
 });
 
 async function fetchPopularMovies() {
-  try {
-    const response = await fetch(
-      `${BASE_URL}/movie/popular?api_key=${API_KEY}`,
+    try {
+    const response = await fetch(`${BASE_URL}/movie/popular?api_key=${API_KEY}`,
     );
     const data = await response.json();
     const sorted = data.results.sort((a, b) => a.title.localeCompare(b.title));
     displayMovies(sorted);
-  } catch (error) {
+    } catch (error) {
     console.error("Error fetching popular movies:", error);
-  }
+    }
 }
 
 fetchPopularMovies();
