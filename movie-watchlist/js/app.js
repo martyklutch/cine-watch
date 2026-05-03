@@ -71,9 +71,10 @@ function displayMovies(movies) {
         modalContainer.classList.remove("modal-hidden");
         modalContainer.classList.add("modal-active");
         
-        // adding a faveorites to the modal 
-        
-        
+        // adding a favorites to the modal 
+        modalfaveHeartBtn.addEventListener("click", function() {
+            toggleFavorite(modalfaveHeartBtn, movie);
+        })
         modalMovieTitle.textContent = `${movie.title}`;
         modalBackDrop.src = `${IMAGE_BASE_URL}${movie.backdrop_path}`;
         modalOverview.textContent = `${movie.overview}`;

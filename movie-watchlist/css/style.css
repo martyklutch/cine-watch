@@ -196,10 +196,11 @@ form {
 }
 
 .modal-content {
+  display: flex;
+  flex-direction: column;
   width: 50%;
   border-radius: 12px;
   background: rgba(255, 255, 255, 0.5);
-
   padding: 2rem;
   color: black;
 }
@@ -207,6 +208,20 @@ form {
 .heart-active {
   color: red;
   fill: red;
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  padding: 1rem;
+  padding-top: 0.5rem;
+}
+
+
+#fave-heart {
+  cursor: pointer;
+  font-size: 1.5rem;
+  color: red;
 }
 
 #movie-backdrop {
