@@ -45,6 +45,39 @@ function toggleFavorite(heartElement, movie) {
         } else {
         heartElement.textContent = "♡";  // empty
         }
+        // Adding favorites to a local storage
+        // getting information from favorites array - check if its empty
+        const favorites = JSON.parse(localStorage.getItem("favorites")) || [];
+        
+        // looks inside the array to see if theres a movie id - 
+        // if its not in favorites add it
+        const favoriteMovies = favorites.find(f => f.id === movie.id)
+        if(!favoriteMovies) {
+            favorites.push(movie)
+            localStorage.setItem("favorites", JSON.stringify(favorites))
+            
+            // if it is remove it
+        }else {
+            const updatedFavorites = favorites.filter(f => f.id !== movie.id)  
+            localStorage.setItem("favorites", JSON.stringify(updatedFavorites));
+        }
+        
+}
+
+// checks to see if faovites is synced 
+const syncHeart = (heartElement, movie) => {
+    const favorites = JSON.parse(localStorage.getItem("favorites")) || [];
+    const isFavorite = favorites.find(f => f.id === movie.id);
+    
+    if(isFavorite) {
+        // takes the element and displays if favorite
+        heartElement.classList.add("heart-active")
+        heartElement.textContent = "❤️";
+    }else {
+        // removes from favorite if user unlikes
+        heartElement.classList.remove("heart-active")
+        heartElement.textContent = "♡";
+    };
 }
 
 function displayMovies(movies) {
@@ -71,13 +104,24 @@ function displayMovies(movies) {
         modalContainer.classList.remove("modal-hidden");
         modalContainer.classList.add("modal-active");
         
-        // adding a favorites to the modal 
-        modalfaveHeartBtn.addEventListener("click", function() {
+        // REmoves the old listener so it does not stack and fight each other
+        modalfaveHeartBtn.removeEventListener("click", modalfaveHeartBtn.handleModalHeart);
+        
+        // creates function and stores favorite on button itself
+        modalfaveHeartBtn.handleModalHeart = function() {
             toggleFavorite(modalfaveHeartBtn, movie);
-        })
+            syncHeart(movieHeart, movie);
+            }
+            
+            // adds fresh listener for the current movie
+        modalfaveHeartBtn.addEventListener("click", modalfaveHeartBtn.handleModalHeart);
+
         modalMovieTitle.textContent = `${movie.title}`;
         modalBackDrop.src = `${IMAGE_BASE_URL}${movie.backdrop_path}`;
         modalOverview.textContent = `${movie.overview}`;
+        
+        // syncs heart on movieCard and modal
+        syncHeart(modalfaveHeartBtn, movie);
     });
     
     movieHeart.addEventListener("click", function(event) {
