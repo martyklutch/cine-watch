@@ -55,7 +55,6 @@ function toggleFavorite(heartElement, movie) {
         if(!favoriteMovies) {
             favorites.push(movie)
             localStorage.setItem("favorites", JSON.stringify(favorites))
-            
             // if it is remove it
         }else {
             const updatedFavorites = favorites.filter(f => f.id !== movie.id)  

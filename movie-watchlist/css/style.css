@@ -16,11 +16,19 @@ nav {
   padding: 15px;
 }
 
-.navbar ul {
+.navbar {
   display: flex;
-  justify-content: flex-end; /* pushes nav links to the right side */
-  padding-right: 45px;
-  list-style: none; /* removes default bullet points */
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 55px;
+  background-color: #5d707f;
+}
+
+.main-nav {
+  display: flex;
+  list-style: none;
+  margin: 0;
+  padding: 0;
 }
 
 .navbar li {
@@ -34,11 +42,20 @@ nav {
   font-weight: bold;
 }
 
+.signup-register {
+  display: flex;
+  flex-direction: row;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
 .navbar a:hover {
   color: #2d3748;
   transition: color 0.3s ease; /* smooth color shift on hover instead of an instant jump */
   border-bottom: 2px solid #ffffff; /* underline effect that only appears on hover */
 }
+
 
 /* Navigation Bar Styling ends */
 
@@ -215,6 +232,144 @@ form {
   justify-content: space-between;
   padding: 1rem;
   padding-top: 0.5rem;
+}
+
+/* sign up form */
+
+
+.signup-container {
+  text-align: center;
+  max-width: 420px;
+  text-align: center;
+  background-color: #5d707f;
+  width: 100%;
+  margin: 4rem auto;
+  border-radius: 16px;
+  padding: 2rem;
+}
+
+.signup-form {
+  display: flex;
+  flex-direction: column;
+  padding: 2rem;
+  border-radius: 16px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+}
+
+.signup-form input {
+        width: 100%;
+        padding: 12px;
+        margin-bottom: 15px;
+        border: 1px solid #ccc;
+        border-radius: 6px;
+        font-size: 14px;
+        box-sizing: border-box;
+}
+
+.signup-form button {
+    width: 100%;
+    padding: 1rem;
+    margin-top: 12px;
+    background-color: #2d3f4c;
+    color: white;
+    border: none;
+    border-radius: 1rem;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.signup-form button:hover {
+    background-color: #2d3748;
+}
+
+/* log in here */
+
+.login-link {
+    text-align: center;
+    margin-top: var(--spacing-md);
+}
+
+.login-link a {
+    color: rgba(68, 13, 110, 0.506);
+    font-weight: 500;
+    text-decoration: underline;
+    gap: 1rem;
+}
+
+/* -- login form -- */
+
+.login-container {
+  text-align: center;
+  max-width: 420px;
+  text-align: center;
+  background-color: #5d707f;
+  width: 100%;
+  margin: 8rem auto;
+  border-radius: 16px;
+  padding: 2rem;
+}
+
+.login-form {
+    display: flex;
+  flex-direction: column;
+  padding: 2rem;
+  border-radius: 16px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+}
+
+.login-form input {
+        width: 100%;
+        padding: 1rem;
+        margin-bottom: 15px;
+        border: 1px solid #ccc;
+        border-radius: 6px;
+        font-size: 14px;
+        box-sizing: border-box;
+}
+
+.login-form button {
+    width: 100%;
+    padding: 12px;
+    background-color: #2d3f4c;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.login-form button:hover {
+    background-color: #2d3748;
+}
+
+.forgot-password {
+    color: rgba(68, 13, 110, 0.506);
+    font-weight: 500;
+    text-decoration: underline;
+    display: block;
+    margin-bottom: 2rem;
+}
+
+.login-container h2,
+.login-container p {
+    text-align: center;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+}
+
+
+/* sign up layout */
+
+.signup-link {
+    text-align: center;
+    margin-top: 2rem;
+}
+
+.signup-link a {
+    color: rgba(68, 13, 110, 0.506);
+    font-weight: 500;
+    text-decoration: underline;
+    
 }
 
 
