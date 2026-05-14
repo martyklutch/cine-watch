@@ -14,16 +14,21 @@ const modalContainer = document.querySelector("#modal-container");
 const closeButton = document.querySelector(".close-button");
 const modalfaveHeartBtn = document.querySelector("#fave-heart");
 
+let timer;
 
-
-searchButton.addEventListener("click", async (e) => {
-    e.preventDefault();
+searchInput.addEventListener('input', (e) => {
+    clearTimeout(timer);
     const query = searchInput.value.trim();
-    if (query) {
-    const movies = await searchMovies(query);
-    displayMovies(movies);
-    }
+    timer = setTimeout(async () => {
+        if (query) {
+            const movies = await searchMovies(query);
+            displayMovies(movies);
+        }else {
+            fetchPopularMovies()
+        }
+    }, 300);
 });
+
 
 async function searchMovies(query) {
     try {
@@ -37,6 +42,7 @@ async function searchMovies(query) {
     return [];
     }
 }
+
 
 function toggleFavorite(heartElement, movie) {
         heartElement.classList.toggle("heart-active");

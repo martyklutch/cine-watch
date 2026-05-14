@@ -76,7 +76,7 @@ h1 {
 /* Search Bar Styling begins */
 
 .search-input {
-  width: 200px;
+  width: 400px;
   padding: 10px 15px;
   border: none;
   border-radius: 12px; /* rounded corners for a modern, pill-like input feel */
@@ -310,7 +310,7 @@ form {
 }
 
 .login-form {
-    display: flex;
+  display: flex;
   flex-direction: column;
   padding: 2rem;
   border-radius: 16px;
