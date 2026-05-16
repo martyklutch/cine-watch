@@ -2,9 +2,6 @@
 
 import { auth } from "../../firebase.js";
 import { onAuthStateChanged } from "firebase/auth";
-import { db } from "../../firebase.js";
-import { doc, getDoc, updateDoc, arrayUnion, arrayRemove} from "firebase/firestore";
-
 import { toggleFavorite, syncHeart } from "/movies.js";
 
 
@@ -86,6 +83,8 @@ function displayMovies(movies) {
             `;
     
     const movieHeart = movieCard.querySelector(".heart-favorite");
+    syncHeart(movieHeart, movie);
+    
     
     movieCard.addEventListener("click", function () {
         modalContainer.classList.remove("modal-hidden");
@@ -113,7 +112,8 @@ function displayMovies(movies) {
     
     movieHeart.addEventListener("click", function(event) {
         event.stopPropagation();
-        toggleFavorite(movieHeart, movie);    
+        toggleFavorite(movieHeart, movie); 
+        syncHeart(modalfaveHeartBtn, movie)   
     })
     
     moviesContainer.appendChild(movieCard);

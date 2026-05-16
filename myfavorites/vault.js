@@ -49,6 +49,7 @@ function displayFavorites(favorites) {
     const container = document.querySelector('#favorites-Results');
     
         favorites.forEach((movie) => {
+        
             
     const movieCard = document.createElement("div");
     
@@ -67,12 +68,14 @@ function displayFavorites(favorites) {
             
             
                 const movieHeart = movieCard.querySelector(".heart-favorite");
+                movieHeart.classList.add("heart-active");
+                movieHeart.textContent = "❤️";
                 
                 movieCard.addEventListener("click", function () {
                     modalContainer.classList.remove("modal-hidden");
                     modalContainer.classList.add("modal-active");
                     
-                    // REmoves the old listener so it does not stack and fight each other
+                    // Removes the old listener so it does not stack and fight each other
                     modalfaveHeartBtn.removeEventListener("click", modalfaveHeartBtn.handleModalHeart);
                     
                     // creates function and stores favorite on button itself
