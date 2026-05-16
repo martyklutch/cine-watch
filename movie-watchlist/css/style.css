@@ -394,3 +394,39 @@ form {
   border-radius: 2%;
 }
 
+#username-display {
+  position: relative;
+  cursor: pointer;
+  color: white;
+  font-weight: bold;
+}
+
+.dropdown-hidden {
+  display: none;
+}
+
+#dropdown-menu {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  background-color: #2d3748;
+  border-radius: 8px;
+  padding: 8px;
+  min-width: 120px;
+}
+
+#logout-btn {
+  background: none;
+  border: none;
+  color: white;
+  cursor: pointer;
+  font-size: 14px;
+  width: 100%;
+  padding: 8px;
+  text-align: left;
+  border-radius: 6px;
+}
+
+#logout-btn:hover {
+  background-color: #5d707f;
+}
