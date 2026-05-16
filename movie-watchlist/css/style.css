@@ -139,6 +139,16 @@ form {
   padding: 30px;
 }
 
+#favorites-Results {
+  display: grid;
+  grid-template-columns: repeat(
+    auto-fill,
+    minmax(450px, 1fr)
+  ); /* responsive grid: fills as many columns as fit, each at least 450px wide */
+  gap: 40px;
+  padding: 30px;
+}
+
 .movie-card {
   position: relative; /* establishes the stacking context so .movie-info can be absolutely positioned inside */
   overflow: hidden; /* clips the image and overlay so they don't bleed outside the rounded corners */

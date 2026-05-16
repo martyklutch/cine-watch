@@ -1,3 +1,25 @@
+'use strict';
+
+import { auth } from "../../firebase.js";
+import { onAuthStateChanged } from "firebase/auth";
+import { db } from "../../firebase.js";
+import { doc, getDoc, updateDoc, arrayUnion, arrayRemove} from "firebase/firestore";
+
+import { toggleFavorite, syncHeart } from "/movies.js";
+
+
+let currentUser = null;
+
+onAuthStateChanged(auth, (user) => {
+    if (user) {
+        currentUser = user;
+    }else {
+        currentUser = null;
+    }
+})
+
+
+
 const API_KEY = "e813d920b5cf8168d2b4e0ac6dcc031e";
 const BASE_URL = "https://api.themoviedb.org/3";
 const IMAGE_BASE_URL = "https://image.tmdb.org/t/p/w500";
@@ -44,46 +66,6 @@ async function searchMovies(query) {
 }
 
 
-function toggleFavorite(heartElement, movie) {
-        heartElement.classList.toggle("heart-active");
-        if (heartElement.classList.contains("heart-active")) {
-        heartElement.textContent = "❤️";  // filled
-        } else {
-        heartElement.textContent = "♡";  // empty
-        }
-        // Adding favorites to a local storage
-        // getting information from favorites array - check if its empty
-        const favorites = JSON.parse(localStorage.getItem("favorites")) || [];
-        
-        // looks inside the array to see if theres a movie id - 
-        // if its not in favorites add it
-        const favoriteMovies = favorites.find(f => f.id === movie.id)
-        if(!favoriteMovies) {
-            favorites.push(movie)
-            localStorage.setItem("favorites", JSON.stringify(favorites))
-            // if it is remove it
-        }else {
-            const updatedFavorites = favorites.filter(f => f.id !== movie.id)  
-            localStorage.setItem("favorites", JSON.stringify(updatedFavorites));
-        }
-        
-}
-
-// checks to see if faovites is synced 
-const syncHeart = (heartElement, movie) => {
-    const favorites = JSON.parse(localStorage.getItem("favorites")) || [];
-    const isFavorite = favorites.find(f => f.id === movie.id);
-    
-    if(isFavorite) {
-        // takes the element and displays if favorite
-        heartElement.classList.add("heart-active")
-        heartElement.textContent = "❤️";
-    }else {
-        // removes from favorite if user unlikes
-        heartElement.classList.remove("heart-active")
-        heartElement.textContent = "♡";
-    };
-}
 
 function displayMovies(movies) {
     moviesContainer.innerHTML = "";

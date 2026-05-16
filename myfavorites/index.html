@@ -8,16 +8,37 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&family=Outfit&display=swap" rel="stylesheet">
-
+<script type="importmap">
+  {
+    "imports": {
+      "firebase/app": "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js",
+      "firebase/auth": "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js",
+      "firebase/firestore": "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js"
+    }
+  }
+</script>
+</head>
 <body>  
 <!-- Navigation bar -->
 <nav class="navbar">
   <ul class="main-nav">
-    <li><a href="/movie-watchlist/index.html">Home</a></li>
+    <li><a href="../movie-watchlist/index.html">Home</a></li>
     <li><a href="/myfavorites/index.html">My Vault</a></li>
     <li><a href="/watching/index.html">Watching Now</a></li>
     <li><a href="/towatch/index.html">The Queue</a></li>
   </ul>
+  
+         <!-- Search form -->
+      <form>
+        <div class = "search-group">
+        <input
+          type="text"
+          id="searchInput"
+          class="search-input"
+          placeholder="Search for movies..."
+        />
+        </div>
+      </form>
   
 
   <ul class="signup-register">
@@ -30,31 +51,37 @@
 </nav>
 
     <main>
-
+ 
         <h1>
 
             My Vault
         </h1>
-       <!-- Search form -->
-      <form>
-        <div class = "search-group">
-        <input
-          type="text"
-          id="searchInput"
-          class="search-input"
-          placeholder="Search for movies..."
-        />
-        <button type = "button" id="searchButton" class="search-btn">Search</button>
-        </div>
-      </form>
 
     <!-- Search results container -->
 
-    <div id="searchResults">
+    <div id="favorites-Results">
             <!-- Search results will be displayed here -->
         </div>
 
 
     </main>
+    
+        <!--Modal goes here-->
+    <div id="modal-container" class="modal-hidden">
+      <div class="modal-content">
+        <div class = "modal-header">
+          <span class="close-button">&times;</span>
+          <span id="fave-heart">&#9825;</span>
+        </div>
+        <img id="movie-backdrop" src="" alt="" />
+        <img id="movie-card-mini" src="" alt="" />
+        <h2 id="movie-title"></h2>
+        <p id="movie-overview"></p>
+      </div>
+    </div>
+    
+    <script type="module" src="../movie-watchlist/js/app.js"></script>
+    <script type="module" src="/navbar.js"></script>
+    <script type="module" src="vault.js"></script>
 </body>
-</html
+</html>
