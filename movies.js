@@ -66,3 +66,37 @@ export async function syncHeart(heartElement, movie) {
     }
     
 }
+
+export async function vaultStore(addVault, movie) {
+    
+    if(!auth.currentUser) return;
+    
+    const uid = auth.currentUser.uid
+    
+    
+    try {
+               // get the users document using getDoc 
+    const userDoc = await getDoc(doc(db, "users", uid));
+        
+    const data = userDoc.data();
+    const vault = data.vault || [];
+    const inVault = vault.find(v => v.id === movie.id); 
+  
+    
+    if(inVault) {
+        await updateDoc(doc(db, "users", uid), {
+            favorites: arrayRemove(movie)
+            
+        });
+        
+    } else {
+        await updateDoc(doc(db, "users", uid), {
+            favorites: arrayUnion(movie)
+            
+        })
+    }
+    
+    } catch (error) {
+        console.log("Error:", error.message);
+    }
+}

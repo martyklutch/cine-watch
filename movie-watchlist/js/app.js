@@ -3,6 +3,7 @@
 import { auth } from "../../firebase.js";
 import { onAuthStateChanged } from "firebase/auth";
 import { toggleFavorite, syncHeart } from "/movies.js";
+import { vaultStore } from "../../movies.js";
 
 
 let currentUser = null;
@@ -76,15 +77,53 @@ function displayMovies(movies) {
     movieCard.innerHTML = `
                 <img src="${IMAGE_BASE_URL}${movie.poster_path}" alt="${movie.title}">
                 <div class="movie-info">
-                    <span class = "heart-favorite">&#9825;</span>
+                    <span class="heart-favorite">&#9825;</span>
+                    
+                    <div class="list-menu">
+                    <button class="toggle-menu">+</button>
+                        <div class="list-options">
+                            <button class="add-vault vault-active">The Vault</button>
+                            <button class="add-watching watching-active">Watching Now</button>
+                            <button class="add-queue queue-active">My Queue</button>
+                        </div>
+                    </div>        
                     <h3>${movie.title}</h3>
                     <p>${movie.release_date ? movie.release_date.split("-")[0] : "Unknown"} </p>
                 </div>
             `;
     
+            
+            
     const movieHeart = movieCard.querySelector(".heart-favorite");
     syncHeart(movieHeart, movie);
     
+    
+    const toggleMenu = movieCard.querySelector(".toggle-menu");
+    const listMenu = movieCard.querySelector('.list-menu');
+    const vaultBtn = movieCard.querySelector(".add-vault");
+    const watchingBtn = movieCard.querySelector(".add-watching");
+    const queueBtn = movieCard.querySelector(".add-queue");
+    
+    toggleMenu.addEventListener('click', function(event) {
+        event.stopPropagation();
+        listMenu.classList.toggle('open');
+    })
+    
+    vaultBtn.addEventListener('click', (event) => {
+        event.stopPropagation();
+        vaultStore(vaultBtn, movie);
+        console.log(`Added ${movie.title} to your vault`);
+    })
+    
+        watchingBtn.addEventListener('click', (event) => {
+        event.stopPropagation();
+        console.log(`Added ${movie.title} to your watching now list`);
+    })
+    
+        queueBtn.addEventListener('click', (event) => {
+        event.stopPropagation();
+        console.log(`Added ${movie.title} to your queue`);
+    })
     
     movieCard.addEventListener("click", function () {
         modalContainer.classList.remove("modal-hidden");

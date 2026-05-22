@@ -430,3 +430,25 @@ form {
 #logout-btn:hover {
   background-color: #5d707f;
 }
+
+/* plus button toggle menu */
+
+.list-options {
+  opacity: 0;
+  transform: translateX(0);
+  pointer-events: none;
+  transition: all 0.3s ease;
+  position: absolute;
+  
+}
+
+.list-menu.open .list-options {
+  display: flex;
+  cursor: pointer;
+  opacity: 0.8;
+  transform: translateX(65px);
+  pointer-events: auto;
+  position: relative;
+
+
+}
