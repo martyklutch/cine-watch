@@ -37,10 +37,10 @@ const QUEUE = {
 
 
 
-export function displayMovies(movies, container) {
+export function displayMovies(movies, container, emptyMessage = "No movies found.") {
     container.innerHTML = "";
     if (movies.length === 0) {
-    container.innerHTML = "<p>No movies found.</p>";
+    container.innerHTML = `<p>${emptyMessage}</p>`;
     return;
     }
     movies.forEach((movie) => {
