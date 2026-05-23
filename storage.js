@@ -1,13 +1,25 @@
 'use strict';
 
 
+export class storageError extends Error {
+    constructor(message, key) {
+        super(message);
+        this.name = "StorageError:";
+        this.key = key;
+    }
+}
+
 export function loadList(key) {
     const raw = localStorage.getItem(key)
-    if(raw === null) {
-        return []
-    } else {
-        return JSON.parse(raw)
+    if(raw === null) return [];
+    
+    
+    try {
+        return JSON.parse(raw);
+    } catch (error) {
+        throw new StorageError(`Failed to parse list "${key}`, key);
     }
+        
 };
 
 
