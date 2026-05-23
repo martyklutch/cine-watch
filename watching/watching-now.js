@@ -10,7 +10,7 @@ const IMAGE_BASE_URL = "https://image.tmdb.org/t/p/w500";
 
 const searchInput = document.getElementById("searchInput");
 const searchButton = document.querySelector("#searchButton");
-const vaultContainer = document.querySelector("#searchResults");
+const watchContainer = document.querySelector("#searchResults");
 const modalOverview = document.querySelector("#movie-overview");
 const modalBackDrop = document.querySelector("#movie-backdrop");
 const modalMovieCardMini = document.querySelector("#movie-card-mini");
@@ -44,7 +44,7 @@ searchInput.addEventListener('input', (e) => {
     timer = setTimeout(async () => {
         if (query) {
             const movies = await searchMovies(query);
-            displayVault(movies);
+            displayWatch(movies);
         }else {
             fetchPopularMovies()
         }
@@ -67,12 +67,12 @@ async function searchMovies(query) {
 
 
 
-function displayVault(movies) {
-    const vault = loadList('vault');
-    vaultContainer.innerHTML = "";
+function displayWatch(movies) {
+    const watch = loadList('watching');
+    watchContainer.innerHTML = "";
     
-    if(vault.length === 0) {
-        container.innerHTML = "<p> Your vault is empty</p>";
+    if(watch.length === 0) {
+        watchContainer.innerHTML = "<p> Your watch is empty</p>";
         return;
     }
     
@@ -139,7 +139,7 @@ function displayVault(movies) {
 
     });
 
-    vaultContainer.appendChild(movieCard);
+    watchContainer.appendChild(movieCard);
     
     });
 }             
@@ -158,4 +158,4 @@ modalContainer.addEventListener("click", function (event) {
     }
 });
 
-displayVault(loadList('vault'));
+displayWatch(loadList('watching'));

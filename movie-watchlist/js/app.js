@@ -2,9 +2,8 @@
 
 import { auth } from "../../firebase.js";
 import { onAuthStateChanged } from "firebase/auth";
-import { toggleFavorite, syncHeart } from "/movies.js";
-import { vaultStore } from "../../movies.js";
-
+import { toggleList, syncListButton } from "/movies.js";
+import { loadList, saveList } from "../../storage.js";
 
 let currentUser = null;
 
@@ -33,6 +32,22 @@ const modalContainer = document.querySelector("#modal-container");
 
 const closeButton = document.querySelector(".close-button");
 const modalfaveHeartBtn = document.querySelector("#fave-heart");
+
+
+const VAULT = {
+    key: 'vault',
+    activeClass: 'vault-active',
+}
+
+const WATCHING = {
+    key: 'watching',
+    activeClass: 'watch-active',
+}
+
+const QUEUE = {
+    key: 'queue',
+    activeClass: 'queue-active',
+}
 
 let timer;
 
@@ -77,14 +92,12 @@ function displayMovies(movies) {
     movieCard.innerHTML = `
                 <img src="${IMAGE_BASE_URL}${movie.poster_path}" alt="${movie.title}">
                 <div class="movie-info">
-                    <span class="heart-favorite">&#9825;</span>
-                    
                     <div class="list-menu">
                     <button class="toggle-menu">+</button>
                         <div class="list-options">
-                            <button class="add-vault vault-active">The Vault</button>
-                            <button class="add-watching watching-active">Watching Now</button>
-                            <button class="add-queue queue-active">My Queue</button>
+                            <button class="add-vault">The Vault</button>
+                            <button class="add-watch">Watching Now</button>
+                            <button class="add-queue">My Queue</button>
                         </div>
                     </div>        
                     <h3>${movie.title}</h3>
@@ -92,17 +105,16 @@ function displayMovies(movies) {
                 </div>
             `;
     
-            
-            
-    const movieHeart = movieCard.querySelector(".heart-favorite");
-    syncHeart(movieHeart, movie);
     
     
     const toggleMenu = movieCard.querySelector(".toggle-menu");
     const listMenu = movieCard.querySelector('.list-menu');
     const vaultBtn = movieCard.querySelector(".add-vault");
-    const watchingBtn = movieCard.querySelector(".add-watching");
+    syncListButton(vaultBtn, movie, VAULT);
+    const watchBtn = movieCard.querySelector(".add-watch");
+    syncListButton(watchBtn, movie, WATCHING);
     const queueBtn = movieCard.querySelector(".add-queue");
+    syncListButton(queueBtn, movie, QUEUE);
     
     toggleMenu.addEventListener('click', function(event) {
         event.stopPropagation();
@@ -111,50 +123,32 @@ function displayMovies(movies) {
     
     vaultBtn.addEventListener('click', (event) => {
         event.stopPropagation();
-        vaultStore(vaultBtn, movie);
+        toggleList(vaultBtn, movie, VAULT);
         console.log(`Added ${movie.title} to your vault`);
     })
     
-        watchingBtn.addEventListener('click', (event) => {
+        watchBtn.addEventListener('click', (event) => {
         event.stopPropagation();
+        toggleList(watchBtn, movie, WATCHING);
         console.log(`Added ${movie.title} to your watching now list`);
     })
     
         queueBtn.addEventListener('click', (event) => {
         event.stopPropagation();
+        toggleList(queueBtn, movie, QUEUE);
         console.log(`Added ${movie.title} to your queue`);
     })
     
     movieCard.addEventListener("click", function () {
         modalContainer.classList.remove("modal-hidden");
         modalContainer.classList.add("modal-active");
-        
-        // REmoves the old listener so it does not stack and fight each other
-        modalfaveHeartBtn.removeEventListener("click", modalfaveHeartBtn.handleModalHeart);
-        
-        // creates function and stores favorite on button itself
-        modalfaveHeartBtn.handleModalHeart = function() {
-            toggleFavorite(modalfaveHeartBtn, movie);
-            syncHeart(movieHeart, movie);
-            }
-            
-            // adds fresh listener for the current movie
-        modalfaveHeartBtn.addEventListener("click", modalfaveHeartBtn.handleModalHeart);
 
         modalMovieTitle.textContent = `${movie.title}`;
         modalBackDrop.src = `${IMAGE_BASE_URL}${movie.backdrop_path}`;
         modalOverview.textContent = `${movie.overview}`;
-        
-        // syncs heart on movieCard and modal
-        syncHeart(modalfaveHeartBtn, movie);
+
     });
-    
-    movieHeart.addEventListener("click", function(event) {
-        event.stopPropagation();
-        toggleFavorite(movieHeart, movie); 
-        syncHeart(modalfaveHeartBtn, movie)   
-    })
-    
+
     moviesContainer.appendChild(movieCard);
     
     });
@@ -185,5 +179,6 @@ async function fetchPopularMovies() {
     console.error("Error fetching popular movies:", error);
     }
 }
+
 
 fetchPopularMovies();

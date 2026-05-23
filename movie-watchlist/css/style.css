@@ -442,13 +442,58 @@ form {
   
 }
 
+.toggle-menu {
+  border-color: white;
+  color: white;
+  border-radius: 4px;
+  padding: 5px 10px;
+  background-color: transparent;
+}
+
+.toggle-menu:hover {
+  background-color: white;
+  color: black;
+  opacity: 0.6;
+  cursor: pointer;
+}
+
 .list-menu.open .list-options {
   display: flex;
-  cursor: pointer;
-  opacity: 0.8;
-  transform: translateX(65px);
+  gap: 2rem;
+  opacity: 1;
+  transform: translateY(10px);
   pointer-events: auto;
   position: relative;
+}
 
+.list-options button {
+    background-color: transparent;
+    border-color: white;
+    color: white;
+    border-radius: 25px;
+    width: 125px;
+    padding: 10px;
+    position: relative;
+}
 
+.list-options button:hover {
+  background-color: white;
+  color: black;
+  opacity: 0.5;
+  border-radius: 25px;
+}
+
+.add-vault.vault-active {
+  background: white;
+  color: black;
+}
+
+.add-watch.watch-active {
+  background: white;
+  color: black;
+}
+
+.add-queue.queue-active {
+  background: white;
+  color: black;
 }
