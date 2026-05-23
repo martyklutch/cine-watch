@@ -1,25 +1,11 @@
 'use strict';
 
-import { auth } from "../../firebase.js";
-import { onAuthStateChanged } from "firebase/auth";
+
 import { toggleList, syncListButton } from "/movies.js";
 import { loadList, saveList } from "../../storage.js";
-
-let currentUser = null;
-
-onAuthStateChanged(auth, (user) => {
-    if (user) {
-        currentUser = user;
-    }else {
-        currentUser = null;
-    }
-})
+import { fetchPopularMovies, searchMovies, IMAGE_BASE_URL } from "../../api.js";
 
 
-
-const API_KEY = "e813d920b5cf8168d2b4e0ac6dcc031e";
-const BASE_URL = "https://api.themoviedb.org/3";
-const IMAGE_BASE_URL = "https://image.tmdb.org/t/p/w500";
 
 const searchInput = document.getElementById("searchInput");
 const searchButton = document.querySelector("#searchButton");
@@ -31,7 +17,7 @@ const modalMovieTitle = document.querySelector("#movie-title");
 const modalContainer = document.querySelector("#modal-container");
 
 const closeButton = document.querySelector(".close-button");
-const modalfaveHeartBtn = document.querySelector("#fave-heart");
+
 
 
 const VAULT = {
@@ -49,38 +35,9 @@ const QUEUE = {
     activeClass: 'queue-active',
 }
 
-let timer;
-
-searchInput.addEventListener('input', (e) => {
-    clearTimeout(timer);
-    const query = searchInput.value.trim();
-    timer = setTimeout(async () => {
-        if (query) {
-            const movies = await searchMovies(query);
-            displayMovies(movies);
-        }else {
-            fetchPopularMovies()
-        }
-    }, 300);
-});
 
 
-async function searchMovies(query) {
-    try {
-    const response = await fetch(
-        `${BASE_URL}/search/movie?api_key=${API_KEY}&query=${encodeURIComponent(query)}`,
-    );
-    const data = await response.json();
-    return data.results;
-    } catch (error) {
-    console.error("Error fetching movies:", error);
-    return [];
-    }
-}
-
-
-
-function displayMovies(movies) {
+export function displayMovies(movies) {
     moviesContainer.innerHTML = "";
     if (movies.length === 0) {
     moviesContainer.innerHTML = "<p>No movies found.</p>";
@@ -106,6 +63,8 @@ function displayMovies(movies) {
             `;
     
     
+
+
     
     const toggleMenu = movieCard.querySelector(".toggle-menu");
     const listMenu = movieCard.querySelector('.list-menu');
@@ -150,9 +109,9 @@ function displayMovies(movies) {
     });
 
     moviesContainer.appendChild(movieCard);
-    
-    });
-}             
+    })
+}
+
 
 closeButton.addEventListener("click", function () {
     modalContainer.classList.add("modal-hidden");
@@ -168,17 +127,4 @@ modalContainer.addEventListener("click", function (event) {
     }
 });
 
-async function fetchPopularMovies() {
-    try {
-    const response = await fetch(`${BASE_URL}/movie/popular?api_key=${API_KEY}`,
-    );
-    const data = await response.json();
-    const sorted = data.results.sort((a, b) => a.title.localeCompare(b.title));
-    displayMovies(sorted);
-    } catch (error) {
-    console.error("Error fetching popular movies:", error);
-    }
-}
 
-
-fetchPopularMovies();

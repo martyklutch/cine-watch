@@ -139,15 +139,7 @@ form {
   padding: 30px;
 }
 
-#favorites-Results {
-  display: grid;
-  grid-template-columns: repeat(
-    auto-fill,
-    minmax(450px, 1fr)
-  ); /* responsive grid: fills as many columns as fit, each at least 450px wide */
-  gap: 40px;
-  padding: 30px;
-}
+
 
 .movie-card {
   position: relative; /* establishes the stacking context so .movie-info can be absolutely positioned inside */
@@ -232,10 +224,6 @@ form {
   color: black;
 }
 
-.heart-active {
-  color: red;
-  fill: red;
-}
 
 .modal-header {
   display: flex;
@@ -382,12 +370,6 @@ form {
     
 }
 
-
-#fave-heart {
-  cursor: pointer;
-  font-size: 1.5rem;
-  color: red;
-}
 
 #movie-backdrop {
   width: 100%;
