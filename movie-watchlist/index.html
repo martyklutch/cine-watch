@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Cine-Watch</title>
-    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="./css/style.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -26,16 +26,16 @@
     <!-- Navigation bar -->
   <nav class="navbar">
   <ul class="main-nav">
-    <li><a href="index.html">Home</a></li>
-    <li><a href="/myfavorites/index.html">My Vault</a></li>
-    <li><a href="/watching/index.html">Watching Now</a></li>
-    <li><a href="/towatch/index.html">The Queue</a></li>
+    <li><a href="/movie-watchlist/index.html">Home</a></li>
+    <li class="logged-in-only"><a href="../myfavorites/index.html">My Vault</a></li>
+    <li class="logged-in-only"><a href="../watching/index.html">Watching Now</a></li>
+    <li class="logged-in-only"><a href="../towatch/index.html">The Queue</a></li>
   </ul>
   
       <!-- Search form -->
       <form>
         <div class="search-group">
-          <input
+          <label for="searchInput"></label><input
             type="text"
             id="searchInput"
             class="search-input"
@@ -91,6 +91,7 @@
     </div>
 
     <script type="module" src="js/app.js"></script>
-    <script type="module" src="/navbar.js"></script>
+    <script type="module" src="../navbar.js"></script>
+
   </body>
 </html>

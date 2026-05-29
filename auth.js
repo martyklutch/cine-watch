@@ -1,9 +1,15 @@
-import { auth } from "./firebase.js";
-import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut  } from "firebase/auth";
+import { auth, db } from "./firebase.js";
+import {  doc, setDoc } from "/firebase/firestore";
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut  } from "/firebase/auth";
 
-export async function signUp(email, password) {
+export async function signUp(username, email, password) {
     try {
         const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+        await setDoc(doc(db, "users", userCredential.user.uid), {
+            username: username,
+            email: email,
+        });
+
         console.log("User created:", userCredential.user);
         return userCredential;
     } catch (error) {

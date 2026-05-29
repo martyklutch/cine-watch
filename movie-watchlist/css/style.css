@@ -42,6 +42,10 @@ nav {
   font-weight: bold;
 }
 
+.logged-in-only {
+    display: none;
+}
+
 .signup-register {
   display: flex;
   flex-direction: row;
@@ -69,7 +73,7 @@ main {
 h1 {
   color: #ffffff;
   text-align: left;
-  text-shadow: 0px 4px 10px rgba(0, 0, 0, 0.8); /* drop shadow adds depth and legibility on the gradient background */
+  text-shadow: 0 4px 10px rgba(0, 0, 0, 0.8); /* drop shadow adds depth and legibility on the gradient background */
   margin-top: 50px;
 }
 
@@ -87,7 +91,7 @@ h1 {
 }
 
 .search-input {
-  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3); /* subtle shadow lifts the input off the background */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3); /* subtle shadow lifts the input off the background */
 }
 
 .search-btn {
@@ -173,14 +177,14 @@ form {
   width: 100%; /* stretches the poster to fill the full card width */
   font-size: 14px;
   border-radius: 0 0 15px 15px; /* only rounds the bottom corners since the top is flush with the card edge */
-  box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.8);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8);
 }
 
 .movie-card:hover {
   transform: scale(
     1.05
   ); /* slight zoom gives the card a tactile, interactive feel */
-  box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.8); /* shadow grows on hover to reinforce the lift effect */
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.8); /* shadow grows on hover to reinforce the lift effect */
 }
 
 .movie-card:hover .movie-info {
@@ -229,7 +233,7 @@ form {
   display: flex;
   justify-content: space-between;
   padding: 1rem;
-  padding-top: 0.5rem;
+
 }
 
 /* sign up form */
@@ -238,7 +242,6 @@ form {
 .signup-container {
   text-align: center;
   max-width: 420px;
-  text-align: center;
   background-color: #5d707f;
   width: 100%;
   margin: 4rem auto;
@@ -284,7 +287,7 @@ form {
 
 .login-link {
     text-align: center;
-    margin-top: var(--spacing-md);
+    margin-top: 2rem;
 }
 
 .login-link a {
@@ -299,7 +302,6 @@ form {
 .login-container {
   text-align: center;
   max-width: 420px;
-  text-align: center;
   background-color: #5d707f;
   width: 100%;
   margin: 8rem auto;

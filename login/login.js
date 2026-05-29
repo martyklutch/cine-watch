@@ -1,21 +1,23 @@
 'use strict';
 
-import { signIn } from "../auth.js";
 
-const logIn = document.querySelector('.login-form');
+import { signIn, logOut } from "../auth.js";
 
-logIn.addEventListener('submit', async function(event) {
-    event.preventDefault()
-    
-const email = document.querySelector('#email').value;
-const password = document.querySelector('#password').value;
-
-try {
-    
-    const result = await signIn(email, password);
-    window.location.href = "../movie-watchlist/index.html";
-}catch (error) {
-    console.log("Error:", error.message);
-}
-
+document.querySelector('.login-form').addEventListener('submit', async function(event) {
+    event.preventDefault();
+    const email = document.querySelector('#email').value;
+    const password = document.querySelector('#password').value;
+    try {
+        const user = await signIn(email, password);
+        window.location.href = '../movie-watchlist/index.html';
+        console.log(user);
+    } catch (error) {
+        console.error(error);
+    }
 })
+
+
+
+
+const logoutBtn = document.querySelector('#logout-btn');
+if(logoutBtn) logoutBtn.addEventListener('click', logOut);

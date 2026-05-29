@@ -1,43 +1,43 @@
 'use strict';
 
-// import { auth } from "./firebase.js";
-// import { logOut } from "./auth.js";
-// import { onAuthStateChanged } from "firebase/auth";
+import { onAuthStateChanged } from "firebase/auth";
+import { doc, getDoc } from "firebase/firestore";
 
+const signupLink = document.querySelector('#signup-link');
+const logInLink = document.querySelector('#log-in-link');
+const usernameDisplay = document.querySelector('#username-display');
+const usernameText = document.querySelector('#username-text');
+const dropdownMenu = document.querySelector('#dropdown-menu');
+const logoutBtn = document.querySelector('#logout-btn');
+const loggedInItems = document.querySelectorAll('.logged-in-only');
 
-// onAuthStateChanged(auth, (user) => {
-//     if (user) {
-//         //someone is logged in
-        
-//         document.querySelector('#username-text').textContent = user.email;
-//         document.querySelector('#signup-link').style.display = 'none';
-//         document.querySelector('#log-in-link').style.display = 'none';
-//         document.querySelector('#username-display').style.display = 'block';
-        
-        
-//         const userDisplay = document.querySelector('#username-text');
-//         const dropdownMenu = document.querySelector('#dropdown-menu');
-//         const logOutbtn = document.querySelector('#logout-btn');
-        
-//         if(userDisplay && dropdownMenu) {
-//             userDisplay.addEventListener('click', function() {
-//                 dropdownMenu.classList.toggle('dropdown-hidden');
-//             })
-//             logOutbtn.addEventListener('click', function() {
-//               logOut()  
-//             })
-//         }
-        
-        
-        
-//     }else {
-//         // nobody is logged in
-//         document.querySelector('#signup-link').style.display = 'block';
-//         document.querySelector('#log-in-link').style.display = 'block';
-//         document.querySelector('#username-display').style.display = 'none';
-//     }
-    
-    
-// })
+onAuthStateChanged(auth, async (user) => {
+    if (user) {
+        const docRef = doc(db, "users", user.uid);
+        const userDoc = await getDoc(docRef);
+        const userData = userDoc.data();
 
+        const username = userData?.username || user.email.split('@')[0];
 
+        if (usernameText) usernameText.textContent = `Welcome, ${username}!`;
+        if (usernameDisplay) usernameDisplay.style.display = 'block';
+        if (signupLink) signupLink.closest('li').style.display = 'none';
+        if (logInLink) logInLink.closest('li').style.display = 'none';
+        loggedInItems.forEach(item => item.style.display = 'list-item');
+
+        if (dropdownMenu) {
+            usernameText.addEventListener('click', () => {
+                dropdownMenu.classList.toggle('dropdown-hidden');
+            });
+        }
+    } else {
+        if (usernameDisplay) usernameDisplay.style.display = 'none';
+    }
+});
+
+if (logoutBtn) {
+    logoutBtn.addEventListener('click', () => {
+        logOut();
+        window.location.href = '../movie-watchlist/index.html';
+    });
+}
