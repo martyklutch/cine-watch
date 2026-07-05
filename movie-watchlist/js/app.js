@@ -1,6 +1,6 @@
 'use strict';
 
-import { IMAGE_BASE_URL, searchMovies, fetchPopularMovies } from "../../api.js";
+import { IMAGE_BASE_URL, searchMovies, fetchPopularMovies } from "../../cinemawatch-react/src/api.js";
 import { displayMovies } from "../../ui.js";
 
 

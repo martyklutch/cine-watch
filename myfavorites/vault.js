@@ -1,6 +1,6 @@
 'use strict';
 
-import { toggleList, syncListButton } from "/movies.js";
+import { toggleList, syncListButton } from "/cinemawatch-react/src/movies.js";
 import { loadList, saveList } from "../../storage.js";
 import { displayMovies } from "../ui.js"
 

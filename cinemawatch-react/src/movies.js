@@ -2,7 +2,7 @@
 
 
 
-import { loadList, saveList } from "./storage.js";
+import { loadList, saveList } from "./storage/storage.js";
 
 
 
